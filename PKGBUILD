@@ -72,7 +72,7 @@ fi
 
 pkgbase=linux-xanmod-aura
 _major=6.1
-pkgver=${_major}.12
+pkgver=${_major}.13
 _branch=6.x
 xanmod=1
 pkgrel=${xanmod}
