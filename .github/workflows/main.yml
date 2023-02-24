@@ -19,4 +19,7 @@ jobs:
     - name: Upload Package Archive
       uses: actions/upload-artifact@v2
       with:
-         path: ${{ steps.makepkg.outputs.pkgfile0 }}
+         name: linux-xanmod-aura-archpak
+         path: |
+          ${{ steps.makepkg.outputs.pkgfile0 }}
+          ${{ steps.makepkg.outputs.pkgfile1 }}
