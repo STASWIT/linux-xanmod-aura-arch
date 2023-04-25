@@ -77,6 +77,9 @@ pkgver=${_major}.8
 _branch=6.x
 xanmod=1
 pkgrel=${xanmod}
+_lqxpatchname=liquorix-package
+_lqxpatchrel=19
+_lqxpatchver=${_lqxpatchname}-${_major}-${_lqxpatchrel}
 pkgdesc='Linux Xanmod - Current Stable (CURRENT) build by aura'
 url="http://www.xanmod.org/"
 arch=(x86_64)
@@ -95,7 +98,11 @@ source=("https://cdn.kernel.org/pub/linux/kernel/v${_branch}/linux-${_major}.tar
         "https://github.com/xanmod/linux/releases/download/${pkgver}-xanmod${xanmod}/patch-${pkgver}-xanmod${xanmod}.xz"
         choose-gcc-optimization.sh
         "0001-cjktty.patch::https://raw.githubusercontent.com/zhmars/cjktty-patches/master/v${_branch}/cjktty-${_major}.patch"
-        "0002-UKSM.patch::https://raw.githubusercontent.com/sirlucjan/kernel-patches/master/6.1/uksmd-cachyos-patches-all/0001-uksmd-cachyos-patches.patch"
+        "0002-UKSM.patch::https://raw.githubusercontent.com/sirlucjan/kernel-patches/master/${_major}/uksmd-cachyos-patches-all/0001-uksmd-cachyos-patches.patch"
+        "0003-bfq.patch::https://raw.githubusercontent.com/sirlucjan/kernel-patches/master/${_major}/bfq-cachyos-patches/0001-bfq-cachyos-patches.patch"
+        "0004-clearlinux.patch::https://github.com/sirlucjan/kernel-patches/raw/master/${_major}/clearlinux-patches/0001-clearlinux-${_major}-introduce-clearlinux-patchset.patch"
+        "https://github.com/damentz/${_lqxpatchname}/archive/${_major}-${_lqxpatchrel}.tar.gz"
+        "https://mirrors.edge.kernel.org/pub/linux/kernel/projects/rt/${_major}/patch-${_major}-rt3.patch.gz"
 )
         #"patch-${pkgver}-xanmod${xanmod}.xz::https://sourceforge.net/projects/xanmod/files/releases/stable/${pkgver}-xanmod${xanmod}/patch-${pkgver}-xanmod${xanmod}.xz/download"
 validpgpkeys=(
@@ -116,6 +123,9 @@ sha256sums=('74862fa8ab40edae85bb3385c0b71fe103288bce518526d63197800b3cbdecb1'
             '94cb5c7b8e01fdd9e744ed5b030c6b37b35263b8b58b78994b140d03da92224d'
             '5c84bfe7c1971354cff3f6b3f52bf33e7bbeec22f85d5e7bfde383b54c679d30'
             'SKIP'
+            'SKIP'
+            'SKIP'
+            'SKIP'
             'SKIP')
 
 export KBUILD_BUILD_HOST=${KBUILD_BUILD_HOST:-archlinux}
@@ -124,6 +134,15 @@ export KBUILD_BUILD_TIMESTAMP=${KBUILD_BUILD_TIMESTAMP:-$(date -Ru${SOURCE_DATE_
 
 prepare() {
   cd linux-${_major}
+
+  patch -Np1 -i "patch-${_major}-rt3.patch/patch-${_major}-rt3.patch"
+
+  # Add Liquorix patches
+  local _patchrx='^zen/v\d+\.\d+\.\d+-lqx\d+.patch$'
+  local _patchfolder="${srcdir}/${_lqxpatchver}/linux-liquorix/debian/patches"
+  local _patchpath="$(grep -P "$_patchrx" "$_patchfolder/series")"
+  echo "Patching sources with ${_patchpath#*/}"
+  patch -Np1 -i "$_patchfolder/$_patchpath"
 
   # Apply Xanmod patch
   patch -Np1 -i ../patch-${pkgver}-xanmod${xanmod}
