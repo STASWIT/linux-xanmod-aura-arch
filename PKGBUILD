@@ -102,7 +102,7 @@ source=("https://cdn.kernel.org/pub/linux/kernel/v${_branch}/linux-${_major}.tar
         "0003-bfq.patch::https://raw.githubusercontent.com/sirlucjan/kernel-patches/master/${_major}/bfq-cachyos-patches/0001-bfq-cachyos-patches.patch"
         "0004-clearlinux.patch::https://github.com/sirlucjan/kernel-patches/raw/master/${_major}/clearlinux-patches/0001-clearlinux-${_major}-introduce-clearlinux-patchset.patch"
         "https://github.com/damentz/${_lqxpatchname}/archive/${_major}-${_lqxpatchrel}.tar.gz"
-        "https://mirrors.edge.kernel.org/pub/linux/kernel/projects/rt/${_major}/patch-${_major}-rt3.patch.gz"
+        #"https://mirrors.edge.kernel.org/pub/linux/kernel/projects/rt/${_major}/patch-${_major}-rt3.patch.gz"
 )
         #"patch-${pkgver}-xanmod${xanmod}.xz::https://sourceforge.net/projects/xanmod/files/releases/stable/${pkgver}-xanmod${xanmod}/patch-${pkgver}-xanmod${xanmod}.xz/download"
 validpgpkeys=(
@@ -126,7 +126,7 @@ sha256sums=('74862fa8ab40edae85bb3385c0b71fe103288bce518526d63197800b3cbdecb1'
             'SKIP'
             'SKIP'
             'SKIP'
-            'SKIP'
+            #'SKIP'
             'SKIP')
 
 export KBUILD_BUILD_HOST=${KBUILD_BUILD_HOST:-archlinux}
@@ -135,8 +135,8 @@ export KBUILD_BUILD_TIMESTAMP=${KBUILD_BUILD_TIMESTAMP:-$(date -Ru${SOURCE_DATE_
 
 prepare() {
   cd linux-${_major}
-  ls
-  patch -Np1 -i "../patch-${_major}-rt3.patch"
+  #ls
+  #patch -Np1 -i "../patch-${_major}-rt3.patch"
 
   # Add Liquorix patches
   local _patchrx='^zen/v\d+\.\d+\.\d+-lqx\d+.patch$'
