@@ -136,7 +136,7 @@ export KBUILD_BUILD_TIMESTAMP=${KBUILD_BUILD_TIMESTAMP:-$(date -Ru${SOURCE_DATE_
 prepare() {
   cd linux-${_major}
 
-  patch -Np1 -i "patch-${_major}-rt3.patch/patch-${_major}-rt3.patch"
+  patch -Np1 -i "patch-${_major}-rt3.patch"
 
   # Add Liquorix patches
   local _patchrx='^zen/v\d+\.\d+\.\d+-lqx\d+.patch$'
