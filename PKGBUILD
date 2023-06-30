@@ -72,10 +72,11 @@ fi
 ### IMPORTANT: Do no edit below this line unless you know what you're doing
 
 pkgbase=linux-xanmod-aura
-_major=6.2
-pkgver=${_major}.8
+_major=6.4
+pkgver=${_major}.0
 _branch=6.x
-xanmod=1
+xanmod=2
+_revision=
 pkgrel=${xanmod}
 _lqxpatchname=liquorix-package
 _lqxpatchrel=19
@@ -118,9 +119,9 @@ for _patch in ${_patches[@]}; do
     source+=("${_patch}::https://raw.githubusercontent.com/archlinux/svntogit-packages/${_commit}/trunk/${_patch}")
 done
 
-sha256sums=('74862fa8ab40edae85bb3385c0b71fe103288bce518526d63197800b3cbdecb1'
+sha256sums=('8fa0588f0c2ceca44cac77a0e39ba48c9f00a6b9dc69761c02a5d3efac8da7f3'
             'SKIP'
-            '94cb5c7b8e01fdd9e744ed5b030c6b37b35263b8b58b78994b140d03da92224d'
+            'c3ed02baf2b503ab53ff86363ee21643408e1d14e4b4046a09acbca1788e0201'
             '5c84bfe7c1971354cff3f6b3f52bf33e7bbeec22f85d5e7bfde383b54c679d30'
             'SKIP'
             'SKIP'
