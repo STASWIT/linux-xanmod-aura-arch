@@ -99,7 +99,7 @@ source=("https://cdn.kernel.org/pub/linux/kernel/v${_branch}/linux-${_major}.tar
         "https://github.com/xanmod/linux/releases/download/${pkgver}-xanmod${xanmod}/patch-${pkgver}-xanmod${xanmod}.xz"
         choose-gcc-optimization.sh
         "0001-cjktty.patch::https://raw.githubusercontent.com/zhmars/cjktty-patches/master/v${_branch}/cjktty-${_major}.patch"
-        "0002-UKSM.patch::https://raw.githubusercontent.com/sirlucjan/kernel-patches/master/${_major}/uksmd-cachyos-patches-all/0001-uksmd-cachyos-patches.patch"
+        #"0002-UKSM.patch::https://raw.githubusercontent.com/sirlucjan/kernel-patches/master/${_major}/uksmd-cachyos-patches-all/0001-uksmd-cachyos-patches.patch"
         "0003-bfq.patch::https://raw.githubusercontent.com/sirlucjan/kernel-patches/master/${_major}/bfq-cachyos-patches/0001-bfq-cachyos-patches.patch"
         #"0004-clearlinux.patch::https://github.com/sirlucjan/kernel-patches/raw/master/${_major}/clearlinux-patches/0001-clearlinux-${_major}-introduce-clearlinux-patchset.patch"
         #"https://github.com/damentz/${_lqxpatchname}/archive/${_major}-${_lqxpatchrel}.tar.gz"
@@ -128,7 +128,7 @@ sha256sums=('8fa0588f0c2ceca44cac77a0e39ba48c9f00a6b9dc69761c02a5d3efac8da7f3'
             #'SKIP'
             #'SKIP'
             #'SKIP'
-            'SKIP')
+            #'SKIP')
 
 export KBUILD_BUILD_HOST=${KBUILD_BUILD_HOST:-archlinux}
 export KBUILD_BUILD_USER=${KBUILD_BUILD_USER:-makepkg}
