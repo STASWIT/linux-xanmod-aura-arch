@@ -78,9 +78,9 @@ _branch=6.x
 xanmod=2
 _revision=
 pkgrel=${xanmod}
-_lqxpatchname=liquorix-package
-_lqxpatchrel=19
-_lqxpatchver=${_lqxpatchname}-${_major}-${_lqxpatchrel}
+# _lqxpatchname=liquorix-package
+# _lqxpatchrel=19
+# _lqxpatchver=${_lqxpatchname}-${_major}-${_lqxpatchrel}
 pkgdesc='Linux Xanmod - Current Stable (CURRENT) build by aura'
 url="http://www.xanmod.org/"
 arch=(x86_64)
@@ -136,21 +136,11 @@ export KBUILD_BUILD_TIMESTAMP=${KBUILD_BUILD_TIMESTAMP:-$(date -Ru${SOURCE_DATE_
 
 prepare() {
   cd linux-${_major}
-  #ls
-  #patch -Np1 -i "../patch-${_major}-rt3.patch"
-
-  # Add Liquorix patches
-  #local _patchrx='^zen/v\d+\.\d+\.\d+-lqx\d+.patch$'
-  #local _patchfolder="${srcdir}/${_lqxpatchver}/linux-liquorix/debian/patches"
-  #local _patchpath="$(grep -P "$_patchrx" "$_patchfolder/series")"
-  #echo "Patching sources with ${_patchpath#*/}"
-  #patch -Np1 -i "$_patchfolder/$_patchpath"
 
   # Apply Xanmod patch
-  patch -Np1 -i ../patch-${pkgver}-xanmod${xanmod}
+  patch -Np1 -i ../patch-${pkgver}-xanmod${xanmod}${_revision}
 
   msg2 "Setting version..."
-  scripts/setlocalversion --save-scmversion
   echo "-$pkgrel" > localversion.10-pkgrel
   echo "${pkgbase#linux-xanmod}" > localversion.20-pkgname
 
