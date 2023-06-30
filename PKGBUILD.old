@@ -36,7 +36,7 @@ fi
 ## Choose between GCC and CLANG config (default is GCC)
 ## Use the environment variable "_compiler=clang"
 if [ "${_compiler}" = "clang" ]; then
-  _compiler_flags="CC=clang HOSTCC=clang LLVM=1 LLVM_IAS=1"
+  _compiler_flags="CC=clang HOSTCC=clang LLVM=1 LLVM_IAS=1 -j20"
 fi
 
 # Choose between the 4 main configs for stable branch. Default x86-64-v1 which use CONFIG_GENERIC_CPU2:
@@ -44,7 +44,7 @@ fi
 # This will be overwritten by selecting any option in microarchitecture script
 # Source files: https://github.com/xanmod/linux/tree/5.17/CONFIGS/xanmod/gcc
 if [ -z ${_config+x} ]; then
-  _config=config_x86-64-v1
+  _config=config_x86-64-v3
 fi
 
 # Compress modules with ZSTD (to save disk space)
@@ -71,14 +71,17 @@ fi
 
 ### IMPORTANT: Do no edit below this line unless you know what you're doing
 
-pkgbase=linux-xanmod
+pkgbase=linux-xanmod-aura
 _major=6.4
 pkgver=${_major}.0
 _branch=6.x
 xanmod=2
 _revision=
 pkgrel=${xanmod}
-pkgdesc='Linux Xanmod - Current Stable (CURRENT)'
+# _lqxpatchname=liquorix-package
+# _lqxpatchrel=19
+# _lqxpatchver=${_lqxpatchname}-${_major}-${_lqxpatchrel}
+pkgdesc='Linux Xanmod - Current Stable (CURRENT) build by aura'
 url="http://www.xanmod.org/"
 arch=(x86_64)
 
@@ -94,7 +97,14 @@ _srcname="linux-${pkgver}-xanmod${xanmod}"
 
 source=("https://cdn.kernel.org/pub/linux/kernel/v${_branch}/linux-${_major}.tar."{xz,sign}
         "patch-${pkgver}-xanmod${xanmod}${_revision}.xz::https://github.com/xanmod/linux/releases/download/${pkgver}-xanmod${xanmod}${_revision}/patch-${pkgver}-xanmod${xanmod}.xz"
-        choose-gcc-optimization.sh)
+        choose-gcc-optimization.sh
+        "0001-cjktty.patch::https://raw.githubusercontent.com/zhmars/cjktty-patches/master/v${_branch}/cjktty-${_major}.patch"
+        #"0002-UKSM.patch::https://raw.githubusercontent.com/sirlucjan/kernel-patches/master/${_major}/uksmd-cachyos-patches-all/0001-uksmd-cachyos-patches.patch"
+        "0003-bfq.patch::https://raw.githubusercontent.com/sirlucjan/kernel-patches/master/${_major}/bfq-cachyos-patches/0001-bfq-cachyos-patches.patch"
+        #"0004-clearlinux.patch::https://github.com/sirlucjan/kernel-patches/raw/master/${_major}/clearlinux-patches/0001-clearlinux-${_major}-introduce-clearlinux-patchset.patch"
+        #"https://github.com/damentz/${_lqxpatchname}/archive/${_major}-${_lqxpatchrel}.tar.gz"
+        #"https://mirrors.edge.kernel.org/pub/linux/kernel/projects/rt/${_major}/patch-${_major}-rt3.patch.gz"
+)
         #"patch-${pkgver}-xanmod${xanmod}.xz::https://sourceforge.net/projects/xanmod/files/releases/stable/${pkgver}-xanmod${xanmod}/patch-${pkgver}-xanmod${xanmod}.xz/download"
 validpgpkeys=(
     'ABAF11C65A2970B130ABE3C479BE3E4300411886' # Linux Torvalds
@@ -112,7 +122,13 @@ done
 sha256sums=('8fa0588f0c2ceca44cac77a0e39ba48c9f00a6b9dc69761c02a5d3efac8da7f3'
             'SKIP'
             'c3ed02baf2b503ab53ff86363ee21643408e1d14e4b4046a09acbca1788e0201'
-            '5c84bfe7c1971354cff3f6b3f52bf33e7bbeec22f85d5e7bfde383b54c679d30')
+            '5c84bfe7c1971354cff3f6b3f52bf33e7bbeec22f85d5e7bfde383b54c679d30'
+            'SKIP'
+            'SKIP'
+            #'SKIP'
+            #'SKIP'
+            #'SKIP'
+            #'SKIP')
 
 export KBUILD_BUILD_HOST=${KBUILD_BUILD_HOST:-archlinux}
 export KBUILD_BUILD_USER=${KBUILD_BUILD_USER:-makepkg}
